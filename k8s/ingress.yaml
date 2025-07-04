@@ -3,17 +3,17 @@ kind: Ingress
 metadata:
   name: rails-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
-    - host: budget.local
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: rails-service
-                port:
-                  number: 80
+  - http:
+      paths:
+      - path: /app1(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: rails-service
+            port:
+              number: 80
 
